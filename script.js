@@ -22,7 +22,7 @@ class Task {
 <ul class="direction"><li class="task_name">ToDo ${
       tasks.findIndex((element) => element.id === this.id) + 1
     } : ${this.title} </li> 
-<li class="time_and_date">${this.getDate()} @ ${this.getTime()}</li>
+<li class="time_and_date">${this.getDate()}  @  ${this.getTime()}</li>
 </ul>
 </div>
 <div class= "button_response">
@@ -39,6 +39,7 @@ class Task {
 </div>
 `;
     document.getElementById("tasks").insertAdjacentHTML("beforeend", html);
+    this.clearInput();
 
     const btn_done = document.getElementById(`btn-donee-${this.id}`);
     btn_done.addEventListener("click", () => this.taskDone());
@@ -52,7 +53,7 @@ class Task {
   //TO ASSIGN DONE
   taskDone() {
     document.querySelector(`.task_details_${this.id}`).style.backgroundColor =
-      "grey";
+      "palevioletred";
   }
   // To DELETE TASK
   taskDelete() {
@@ -64,9 +65,10 @@ class Task {
   }
   // To EDIT TASK
   taskEdit() {
-    const HTML = `
-<input id="replace-input-${this.id}" type="text">
+    const HTML = `<div class = "replace_data_input">
+<input class="replace_input" id="replace-input-${this.id}" type="text">
 <button class="replace_button" id="replace-btn-${this.id}">Replace</button>
+</div>
 `;
     document.getElementById("tasks").insertAdjacentHTML("beforeend", HTML);
 
@@ -82,8 +84,12 @@ class Task {
       }
     });
   }
-}
 
+  //TO  CLEAR INPUT
+  clearInput() {
+    input.value = "";
+  }
+}
 ///////////////////////////////////Main/////////////////////////
 const tasks = [];
 function addTask() {

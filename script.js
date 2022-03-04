@@ -1,4 +1,5 @@
 /// GLOBAL VARIABLES
+
 const input = document.getElementById("input-text");
 let id = 0;
 ////TASK
@@ -90,8 +91,15 @@ class Task {
     input.value = "";
   }
 }
+
 ///////////////////////////////////Main/////////////////////////
+
 const tasks = [];
+const taskstored = JSON.parse(localStorage.getItem("taskDetails"));
+console.log(taskstored);
+
+//window.onload =
+getstorage();
 function addTask() {
   if (input.value === "") {
     alert("You must write something!");
@@ -99,19 +107,39 @@ function addTask() {
     const newTask = new Task(input.value);
     tasks.push(newTask);
     newTask.createTask(newTask.title);
+    console.log(tasks);
+    setStorage();
   }
   id++;
 }
+
+///GET TASKS STORAGE
+function getstorage() {
+  taskstored.forEach((task) => {
+    console.log(task.title);
+    //task.createTask(task.title);
+    const newTask = new Task(task.title);
+    tasks.push(newTask);
+    newTask.createTask(task.title);
+  });
+}
+///GET TASKS STORAGE
+function setStorage() {
+  localStorage.setItem("taskDetails", JSON.stringify(tasks));
+  console.log(JSON.parse(localStorage.getItem("taskDetails")));
+}
+
 ///UPDATE TASKS
 function updateUI() {
   document.getElementById("tasks").innerHTML = "";
   tasks.forEach((task) => {
     task.createTask(task.title);
   });
+  setStorage();
 }
 
 /////LOCAL STORAGE
-const storedInput = localStorage.getItem("textinput");
+/*const storedInput = localStorage.getItem("textinput");
 if (input) {
   input.textContent = input;
 }
@@ -122,7 +150,12 @@ const savetolocalStorage = () => {
   localStorage.setItem("textinput", input.textContent);
 };
 const btn = document.querySelector(".add_button");
-btn.addEventListener("click", savetolocalStorage);
+btn.addEventListener("click", savetolocalStorage);*/
+
+//var localObject = [];
+
+//var testObject = { userName: "secondUser", password: "password2" };
+//localObject.push(testObject);
 
 /*
 function persist(event) {
